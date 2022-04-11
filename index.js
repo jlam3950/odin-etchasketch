@@ -1,14 +1,14 @@
-// let div = document.createElement('div');
-// let grid = document.querySelector("#gridcontainer");
-// div.classList.add('grid-item');
-// grid.appendChild(div);
-// div.appendChild(text);
+//Etch a sketch JS 
 
-let makeGrid = () => {
-    for (let i = 0; i < 16; i++){
+//Creating the Grid. // Moved function call to the bottom of page. 
+
+let makeGrid = (divSize) => {
+    gridSize(divSize);
+
+    for (let i = 0; i < divSize; i++){
         let div = document.createElement('div');
         div.classList.add('grid-item');
-        for (let j = 0; j < 16; j++){
+        for (let j = 0; j < divSize; j++){
             let div = document.createElement('div');
             const gridContainer = document.querySelector("#gridcontainer");
             gridContainer.appendChild(div);
@@ -17,13 +17,16 @@ let makeGrid = () => {
     } 
 }
 
-makeGrid();
+// trying to figure out how to change the CSS properties of gridTemplateColumns, Rows
+//look up setProperty
+let gridSize = (divSize) => {
+    document.getElementById('gridcontainer').style.setProperty('grid-template-columns', 'repeat(' + divSize +', 25px');
+    document.getElementById('gridcontainer').style.setProperty('grid-template-rows','repeat(' + divSize +', 25px');
+}
 
+// Adding hover effect to Divs 
 
-// document.querySelector(".grid-item").addEventListener("mouseover", function(){
-//     document.querySelector(".grid-item").style.backgroundColor = "black";
-// });
-
+makeGrid(15);
 
 const gridColor = document.querySelectorAll('.grid-item'); //we need to use SelectorALl here because it querySelector will only return the first matching
 
@@ -35,11 +38,34 @@ for (let i=0; i < gridColor.length; i++){
     })
 }
 
+//Reset function
 
-// gridColor.forEach(grid-item => {
-//     grid-item.addEventListener('click', function turnBlack(event){
-//         console.log('box clicked', event);
-//         // document.querySelector(".grid-item").style.backgroundColor = "black";
-//     });
-// });
+let resetBtn = document.querySelector('#reset');
+let demo = document.querySelector('#demo');
+
+
+
+
+
+function promptUser(){
+    // let x = parseInt(prompt("Entera Value", "0"), 1000);
+    // return x;
+
+    let x = prompt("Please, specify the grid size.");
+    demo.innerText = x;
+    return x; //how do I get this outside of the function 
+}
+
+
+resetBtn.addEventListener('click', function(){
+    // location.reload(); //This cannot work because it will erase the settings.
+    promptUser();
+})
+
+
+
+
+// var a = prompt("Enter your name");
+// document.getElementById("myName").value = a;
+// <input type="text" id="myName"></input>
 
