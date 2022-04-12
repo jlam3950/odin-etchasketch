@@ -1,12 +1,12 @@
 //Etch a sketch JS 
 
 
-
+//Global Variables
 const gridContainer = document.querySelector("#gridcontainer");
 const resetBtn = document.querySelector('#reset');
 const demo = document.querySelector('#demo');
 
-//Creating the Grid, Adding the Event Listeners. 
+//Function to add event listeners, hover color
 
 let gridListener = () => {
     const gridColor = document.querySelectorAll('.grid-item')
@@ -19,6 +19,7 @@ let gridListener = () => {
     }
 }
 
+// Function to make grid. Will take value from user prompt. 
 let makeGrid = (divSize = 32) => { // = 32 sets as default, can be overwritten. 
     gridSize(divSize);
 
@@ -34,8 +35,6 @@ let makeGrid = (divSize = 32) => { // = 32 sets as default, can be overwritten.
     } 
     gridListener();
 }
-
-//Erase function
 
 //Applies grid template columns, rows to JS created divs
 let gridSize = (divSize) => {
@@ -68,21 +67,24 @@ function reset(){
 }
 
 function promptUser(){
- 
-    x = prompt("Please, specify the grid size.");
+
+    x = prompt("Please, specify the grid height, width. (max size 100 x 100)");
+    if (x == ''){
+        makeGrid(32);
+    }  else {
+        makeGrid(x);
+    }
     // demo.innerText = x; //testing value for prompt 
-    makeGrid(x); //calls function again, takes the input from prompt 
+    // makeGrid(x); //calls function again, takes the input from prompt 
     
 }
 
 resetBtn.addEventListener('click', function(){
     // location.reload(); //This cannot work because it will erase the settings.
-    // reset(); same thing as line 77.
     // for (let i =0; i <gridColor.length; i++){
     //     gridColor[i].style.backgroundColor = "white";
     reset();
     promptUser();
-    // reset();
 })
 
 
