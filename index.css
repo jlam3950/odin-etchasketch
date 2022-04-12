@@ -12,7 +12,7 @@ body{
     grid-template-rows: repeat(16, 25px); */
     /* border: 2em solid red;
     border-bottom: 3em solid red; */
-    border-radius: 20px; 
+    /* border-radius: 20px;  */
     z-index: 1;
 }
 
