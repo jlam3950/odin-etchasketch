@@ -1,6 +1,10 @@
 //Etch a sketch JS 
 
-//Creating the Grid. // Moved function call to the bottom of page. 
+
+
+const gridContainer = document.querySelector("#gridcontainer");
+
+//Creating the Grid, Adding the Event Listeners. 
 
 let gridListener = () => {
     const gridColor = document.querySelectorAll('.grid-item')
@@ -9,12 +13,12 @@ let gridListener = () => {
         gridColor[i].addEventListener('mouseover', function (){
             // document.querySelector('.grid-item').getElementsByClassName.backgroundColor = "black";
             gridColor[i].style.backgroundColor = "black"; 
-            console.log("I'm working!");
+            // console.log("I'm working!");
         })
     }
 }
 
-gridListener();
+// gridListener();
 
 let makeGrid = (divSize) => {
     gridSize(divSize);
@@ -32,17 +36,23 @@ let makeGrid = (divSize) => {
     gridListener();
 }
 
-// trying to figure out how to change the CSS properties of gridTemplateColumns, Rows
-//look up setProperty
+//Erase function
+
+
+
+//Applies grid template columns, rows to JS created divs
 let gridSize = (divSize) => {
-    document.getElementById('gridcontainer').style.setProperty('grid-template-columns', 'repeat(' + divSize +', 25px');
-    document.getElementById('gridcontainer').style.setProperty('grid-template-rows','repeat(' + divSize +', 25px');
+    document.getElementById('gridcontainer').style.setProperty('grid-template-columns', 'repeat(' + divSize +', 15px'); //look up setProperty
+    document.getElementById('gridcontainer').style.setProperty('grid-template-rows','repeat(' + divSize +', 15px');
 }
 
-let x = 16;
+//Grid Start Size
+let x = 32;
 makeGrid(x);
 
-const gridColor = document.querySelectorAll('.grid-item'); //we need to use SelectorALl here because it querySelector will only return the first matching
+//Adding initial event listeners 
+
+const gridColor = document.querySelectorAll('.grid-item'); //we need to use SelectorAll here because it querySelector will only return the first matching
 
     for (let i=0; i < gridColor.length; i++){
         gridColor[i].addEventListener('mouseover', function (){
@@ -53,24 +63,33 @@ const gridColor = document.querySelectorAll('.grid-item'); //we need to use Sele
         })
     }
 
-//Reset function
+
 
 let resetBtn = document.querySelector('#reset');
 let demo = document.querySelector('#demo');
 
+//Reset function
 
-function promptUser(){
-    x = prompt("Please, specify the grid size.");
-    demo.innerText = x;
-    // return x; //how do I get this outside of the function 
-    // makeGrid(x); calls function again implementing the user prompt
-    makeGrid(x);
+function reset(){
+    gridColor.forEach((e) => {gridContainer.removeChild(e)}); //Not sure why this only works once
 }
 
+function promptUser(){
+    // reset(); - works only once
+    x = prompt("Please, specify the grid size.");
+    // demo.innerText = x; //testing value for prompt 
+    makeGrid(x); //calls function again, takes the input from prompt 
+}
 
 
 resetBtn.addEventListener('click', function(){
     // location.reload(); //This cannot work because it will erase the settings.
+    // reset(); same thing as line 77.
+    // for (let i =0; i <gridColor.length; i++){
+    //     gridColor[i].style.backgroundColor = "white";
+        
+    // }
+    reset();
     promptUser();
 })
 
@@ -81,20 +100,6 @@ resetBtn.addEventListener('click', function(){
 // document.getElementById("myName").value = a;
 // <input type="text" id="myName"></input>
 
-
-// seeing if this function works when put at the bottom; 
-
-// makeGrid(x);
-
-// const gridColor = document.querySelectorAll('.grid-item'); //we need to use SelectorALl here because it querySelector will only return the first matching
-
-// for (let i=0; i < gridColor.length; i++){
-//     gridColor[i].addEventListener('mouseover', function (){
-//         // document.querySelector('.grid-item').getElementsByClassName.backgroundColor = "black";
-//         event.target.style.backgroundColor = "black"; //why does this need an event? and why does it cross it out 
-//         console.log("I'm working!");
-//     })
-// }
 
 
 
