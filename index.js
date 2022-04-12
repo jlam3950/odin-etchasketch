@@ -3,6 +3,8 @@
 
 
 const gridContainer = document.querySelector("#gridcontainer");
+const resetBtn = document.querySelector('#reset');
+const demo = document.querySelector('#demo');
 
 //Creating the Grid, Adding the Event Listeners. 
 
@@ -11,16 +13,13 @@ let gridListener = () => {
 
     for (let i=0; i < gridColor.length; i++){
         gridColor[i].addEventListener('mouseover', function (){
-            // document.querySelector('.grid-item').getElementsByClassName.backgroundColor = "black";
             gridColor[i].style.backgroundColor = "black"; 
             // console.log("I'm working!");
         })
     }
 }
 
-// gridListener();
-
-let makeGrid = (divSize) => {
+let makeGrid = (divSize = 32) => { // = 32 sets as default, can be overwritten. 
     gridSize(divSize);
 
     for (let i = 0; i < divSize; i++){
@@ -38,68 +37,54 @@ let makeGrid = (divSize) => {
 
 //Erase function
 
-
-
 //Applies grid template columns, rows to JS created divs
 let gridSize = (divSize) => {
-    document.getElementById('gridcontainer').style.setProperty('grid-template-columns', 'repeat(' + divSize +', 15px'); //look up setProperty
+    document.getElementById('gridcontainer').style.setProperty('grid-template-columns', 'repeat('+ divSize +', 15px'); //look up setProperty
     document.getElementById('gridcontainer').style.setProperty('grid-template-rows','repeat(' + divSize +', 15px');
 }
 
-//Grid Start Size
-let x = 32;
-makeGrid(x);
+//Placed make grid here, moved to line 90;
 
 //Adding initial event listeners 
+// gridListener(); why can't I call this here instead of typing out the function 
+// const gridColor = document.querySelectorAll('.grid-item');
+ //we need to use SelectorAll here because it querySelector will only return the first matching
 
-const gridColor = document.querySelectorAll('.grid-item'); //we need to use SelectorAll here because it querySelector will only return the first matching
+    // for (let i=0; i < gridColor.length; i++){
+    //     gridColor[i].addEventListener('mouseover', function (){
+    //         // document.querySelector('.grid-item').getElementsByClassName.backgroundColor = "black";
+    //         // event.target - this is considered depracated, which means that it may no longer be supported. 
+    //         gridColor[i].style.backgroundColor = "black"; 
+    //         console.log("I'm working!");
+    //     })
+    // }
 
-    for (let i=0; i < gridColor.length; i++){
-        gridColor[i].addEventListener('mouseover', function (){
-            // document.querySelector('.grid-item').getElementsByClassName.backgroundColor = "black";
-            // event.target - this is considered depracated, which means that it may no longer be supported. 
-            gridColor[i].style.backgroundColor = "black"; 
-            console.log("I'm working!");
-        })
-    }
-
-
-
-let resetBtn = document.querySelector('#reset');
-let demo = document.querySelector('#demo');
 
 //Reset function
 
 function reset(){
-    gridColor.forEach((e) => {gridContainer.removeChild(e)}); //Not sure why this only works once
+    const gridColor = document.querySelectorAll('.grid-item');
+    gridColor.forEach((e) => (gridContainer.removeChild(e))); 
 }
 
 function promptUser(){
-    // reset(); - works only once
+ 
     x = prompt("Please, specify the grid size.");
     // demo.innerText = x; //testing value for prompt 
     makeGrid(x); //calls function again, takes the input from prompt 
+    
 }
-
 
 resetBtn.addEventListener('click', function(){
     // location.reload(); //This cannot work because it will erase the settings.
     // reset(); same thing as line 77.
     // for (let i =0; i <gridColor.length; i++){
     //     gridColor[i].style.backgroundColor = "white";
-        
-    // }
     reset();
     promptUser();
+    // reset();
 })
 
 
 
-
-// var a = prompt("Enter your name");
-// document.getElementById("myName").value = a;
-// <input type="text" id="myName"></input>
-
-
-
-
+makeGrid();
